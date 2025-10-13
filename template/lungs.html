@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asthma Prediction Model</title>
+    <link rel="stylesheet" href="../static/css/lungs.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Asthma Prediction</h2>
+        <form action="/lungs_predict" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender" required>
+                    <option value="0">Female</option>
+                    <option value="1">Male</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="ethnicity">Ethnicity:</label>
+                <select id="ethnicity" name="ethnicity" required>
+                    <option value="0">None</option>
+                    <option value="1">Low</option>
+                    <option value="2">Moderate</option>
+                    <option value="3">High</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="educationLevel">Education Level:</label>
+                <select id="educationLevel" name="educationLevel" required>
+                    <option value="0">None</option>
+                    <option value="1">Matric</option>
+                    <option value="2">Undergraduate</option>
+                    <option value="3">Graduate</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="bmi">BMI:</label>
+                <input type="number" step="0.01" id="bmi" name="bmi" required>
+            </div>
+
+            <div class="form-group">
+                <label for="smoking">Smoking:</label>
+                <select id="smoking" name="smoking" required>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="physicalActivity">Physical Activity:</label>
+                <input type="number" step="0.01" id="physicalActivity" name="physicalActivity" required>
+            </div>
+
+            <div class="form-group">
+                <label for="dietQuality">Diet Quality:</label>
+                <input type="number" step="0.01" id="dietQuality" name="dietQuality" required>
+            </div>
+
+            <div class="form-group">
+                <label for="sleepQuality">Sleep Quality:</label>
+                <input type="number" step="0.01" id="sleepQuality" name="sleepQuality" required>
+            </div>
+
+            <div class="form-group">
+                <label for="pollutionExposure">Pollution Exposure:</label>
+                <input type="number" step="0.01" id="pollutionExposure" name="pollutionExposure" required>
+            </div>
+
+            <div class="form-group">
+                <label for="pollenExposure">Pollen Exposure:</label>
+                <input type="number" step="0.01" id="pollenExposure" name="pollenExposure" required>
+            </div>
+
+            <div class="form-group">
+                <label for="dustExposure">Dust Exposure:</label>
+                <input type="number" step="0.01" id="dustExposure" name="dustExposure" required>
+            </div>
+
+            <div class="form-group">
+                <label for="petAllergy">Pet Allergy:</label>
+                <select id="petAllergy" name="petAllergy" required>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="familyHistoryAsthma">Family History of Asthma:</label>
+                <select id="familyHistoryAsthma" name="familyHistoryAsthma" required>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="historyOfAllergies">History of Allergies:</label>
+                <select id="historyOfAllergies" name="historyOfAllergies" required>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="eczema">Eczema:</label>
+                <select id="eczema" name="eczema" required>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="hayFever">Hay Fever:</label>
+                <select id="hayFever" name="hayFever" required>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="gastroesophagealReflux">Gastroesophageal Reflux:</label>
+                <select id="gastroesophagealReflux" name="gastroesophagealReflux" required>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="lungFunctionFEV1">Lung Function (FEV1):</label>
+                <input type="number" step="0.01" id="lungFunctionFEV1" name="lungFunctionFEV1" required>
+            </div>
+
+            <div class="form-group">
+                <label for="lungFunctionFVC">Lung Function (FVC):</label>
+                <input type="number" step="0.01" id="lungFunctionFVC" name="lungFunctionFVC" required>
+            </div>
+
+            <div class="form-group">
+                <label for="wheezing">Wheezing:</label>
+                <select id="wheezing" name="wheezing" required>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="shortnessOfBreath">Shortness of Breath:</label>
+                <select id="shortnessOfBreath" name="shortnessOfBreath" required>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="chestTightness">Chest Tightness:</label>
+                <select id="chestTightness" name="chestTightness" required>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="coughing">Coughing:</label>
+                <select id="coughing" name="coughing" required>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="nighttimeSymptoms">Nighttime Symptoms:</label>
+                <select id="nighttimeSymptoms" name="nighttimeSymptoms" required>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="exerciseInduced">Exercise-Induced Symptoms:</label>
+                <select id="exerciseInduced" name="exerciseInduced" required>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+            
+            <button type="submit">Submit</button>
+        </form>
+        <div>
+            <h3>{{ lungs_Result }}</h3>
+        </div>
+    </div>
+</body>
+</html>

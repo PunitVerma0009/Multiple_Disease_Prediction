@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chronic Kidney Disease Prediction Model</title>
+    <link rel="stylesheet" href="../static/css/kidney1.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Chronic Kidney Disease Prediction</h2>
+        <form action="/kidney_predict" method="post">
+            {% csrf_token %}
+            
+            <!-- Age -->
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" required>
+            </div>
+            
+            <!-- Gender -->
+            <div class="form-group">
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender" required>
+                    <option value="0">Female</option>
+                    <option value="1">Male</option>
+                </select>
+            </div>
+            
+            <!-- Ethnicity -->
+            <div class="form-group">
+                <label for="ethnicity">Ethnicity:</label>
+                <select id="ethnicity" name="ethnicity" required>
+                    <option value="0">Ethnicity 1</option>
+                    <option value="1">Ethnicity 2</option>
+                    <option value="2">Ethnicity 3</option>
+                </select>
+            </div>
+
+            <!-- Socioeconomic Status -->
+            <div class="form-group">
+                <label for="socioeconomicStatus">Socioeconomic Status:</label>
+                <select id="socioeconomicStatus" name="socioeconomicStatus" required>
+                    <option value="0">Low</option>
+                    <option value="1">Middle</option>
+                    <option value="2">High</option>
+                </select>
+            </div>
+
+            <!-- Education Level -->
+            <div class="form-group">
+                <label for="educationLevel">Education Level:</label>
+                <select id="educationLevel" name="educationLevel" required>
+                    <option value="0">None</option>
+                    <option value="1">Primary</option>
+                    <option value="2">Secondary</option>
+                    <option value="3">Tertiary</option>
+                </select>
+            </div>
+
+            <!-- BMI -->
+            <div class="form-group">
+                <label for="bmi">BMI:</label>
+                <input type="number" step="0.01" id="bmi" name="bmi" required>
+            </div>
+
+            <!-- Smoking -->
+            <div class="form-group">
+                <label for="smoking">Smoking:</label>
+                <select id="smoking" name="smoking" required>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+
+            <!-- Alcohol Consumption -->
+            <div class="form-group">
+                <label for="alcoholConsumption">Alcohol Consumption:</label>
+                <input type="number" step="0.01" id="alcoholConsumption" name="alcoholConsumption" required>
+            </div>
+
+            <!-- Physical Activity -->
+            <div class="form-group">
+                <label for="physicalActivity">Physical Activity:</label>
+                <input type="number" step="0.01" id="physicalActivity" name="physicalActivity" required>
+            </div>
+
+            <!-- Diet Quality -->
+            <div class="form-group">
+                <label for="dietQuality">Diet Quality:</label>
+                <input type="number" step="0.01" id="dietQuality" name="dietQuality" required>
+            </div>
+
+            <!-- Sleep Quality -->
+            <div class="form-group">
+                <label for="sleepQuality">Sleep Quality:</label>
+                <input type="number" step="0.01" id="sleepQuality" name="sleepQuality" required>
+            </div>
+
+            <!-- Family History of Kidney Disease -->
+            <div class="form-group">
+                <label for="familyHistoryKidneyDisease">Family History of Kidney Disease:</label>
+                <select id="familyHistoryKidneyDisease" name="familyHistoryKidneyDisease" required>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+
+            <!-- Family History of Hypertension -->
+            <div class="form-group">
+                <label for="familyHistoryHypertension">Family History of Hypertension:</label>
+                <select id="familyHistoryHypertension" name="familyHistoryHypertension" required>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+
+            <!-- Family History of Diabetes -->
+            <div class="form-group">
+                <label for="familyHistoryDiabetes">Family History of Diabetes:</label>
+                <select id="familyHistoryDiabetes" name="familyHistoryDiabetes" required>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+
+            <!-- Previous Acute Kidney Injury -->
+            <div class="form-group">
+                <label for="previousAcuteKidneyInjury">Previous Acute Kidney Injury:</label>
+                <select id="previousAcuteKidneyInjury" name="previousAcuteKidneyInjury" required>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+
+            <!-- Urinary Tract Infections -->
+            <div class="form-group">
+                <label for="urinaryTractInfections">Urinary Tract Infections:</label>
+                <select id="urinaryTractInfections" name="urinaryTractInfections" required>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+
+            <!-- Systolic BP -->
+            <div class="form-group">
+                <label for="systolicBP">Systolic BP:</label>
+                <input type="number" step="0.01" id="systolicBP" name="systolicBP" required>
+            </div>
+
+            <!-- Diastolic BP -->
+            <div class="form-group">
+                <label for="diastolicBP">Diastolic BP:</label>
+                <input type="number" step="0.01" id="diastolicBP" name="diastolicBP" required>
+            </div>
+
+            <!-- Fasting Blood Sugar -->
+            <div class="form-group">
+                <label for="fastingBloodSugar">Fasting Blood Sugar:</label>
+                <input type="number" step="0.01" id="fastingBloodSugar" name="fastingBloodSugar" required>
+            </div>
+
+            <!-- HbA1c -->
+            <div class="form-group">
+                <label for="hba1c">HbA1c:</label>
+                <input type="number" step="0.01" id="hba1c" name="hba1c" required>
+            </div>
+
+            <!-- Serum Creatinine -->
+            <div class="form-group">
+                <label for="serumCreatinine">Serum Creatinine:</label>
+                <input type="number" step="0.01" id="serumCreatinine" name="serumCreatinine" required>
+            </div>
+
+            <!-- BUN Levels -->
+            <div class="form-group">
+                <label for="bunLevels">BUN Levels:</label>
+                <input type="number" step="0.01" id="bunLevels" name="bunLevels" required>
+            </div>
+
+            <!-- GFR -->
+            <div class="form-group">
+                <label for="gfr">GFR:</label>
+                <input type="number" step="0.01" id="gfr" name="gfr" required>
+            </div>
+
+            <!-- Protein In Urine -->
+            <div class="form-group">
+                <label for="proteinInUrine">Protein In Urine:</label>
+                <input type="number" step="0.01" id="proteinInUrine" name="proteinInUrine" required>
+            </div>
+
+            <!-- ACR -->
+            <div class="form-group">
+                <label for="acr">ACR:</label>
+                <input type="number" step="0.01" id="acr" name="acr" required>
+            </div>
+
+            <!-- Serum Electrolytes Sodium -->
+            <div class="form-group">
+                <label for="serumElectrolytesSodium">Serum Electrolytes Sodium:</label>
+                <input type="number" step="0.01" id="serumElectrolytesSodium" name="serumElectrolytesSodium" required>
+            </div>
+
+            <!-- Serum Electrolytes Potassium -->
+            <div class="form-group">
+                <label for="serumElectrolytesPotassium">Serum Electrolytes Potassium:</label>
+                <input type="number" step="0.01" id="serumElectrolytesPotassium" name="serumElectrolytesPotassium" required>
+            </div>
+
+            <!-- Serum Electrolytes Calcium -->
+            <div class="form-group">
+                <label for="serumElectrolytesCalcium">Serum Electrolytes Calcium:</label>
+                <input type="number" step="0.01" id="serumElectrolytesCalcium" name="serumElectrolytesCalcium" required>
+            </div>
+
+            <!-- Serum Electrolytes Phosphorus -->
+            <div class="form-group">
+                <label for="serumElectrolytesPhosphorus">Serum Electrolytes Phosphorus:</label>
+                <input type="number" step="0.01" id="serumElectrolytesPhosphorus" name="serumElectrolytesPhosphorus" required>
+            </div>
+
+            <!-- Hemoglobin Levels -->
+            <div class="form-group">
+                <label for="hemoglobinLevels">Hemoglobin Levels:</label>
+                <input type="number" step="0.01" id="hemoglobinLevels" name="hemoglobinLevels" required>
+            </div>
+
+            <!-- Cholesterol Total -->
+            <div class="form-group">
+                <label for="cholesterolTotal">Cholesterol Total:</label>
+                <input type="number" step="0.01" id="cholesterolTotal" name="cholesterolTotal" required>
+            </div>
+
+            <!-- Cholesterol LDL -->
+            <div class="form-group">
+                <label for="cholesterolLDL">Cholesterol LDL:</label>
+                <input type="number" step="0.01" id="cholesterolLDL" name="cholesterolLDL" required>
+            </div>
+
+            <!-- Cholesterol HDL -->
+            <div class="form-group">
+                <label for="cholesterolHDL">Cholesterol HDL:</label>
+                <input type="number" step="0.01" id="cholesterolHDL" name="cholesterolHDL" required>
+            </div>
+
+            <!-- Cholesterol Triglycerides -->
+            <div class="form-group">
+                <label for="cholesterolTriglycerides">Cholesterol Triglycerides:</label>
+                <input type="number" step="0.01" id="cholesterolTriglycerides" name="cholesterolTriglycerides" required>
+            </div>
+
+            <!-- ACE Inhibitors -->
+            <div class="form-group">
+                <label for="aceInhibitors">ACE Inhibitors:</label>
+                <select id="aceInhibitors" name="aceInhibitors" required>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+
+            <!-- Diuretics -->
+            <div class="form-group">
+                <label for="diuretics">Diuretics:</label>
+                <select id="diuretics" name="diuretics" required>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+
+            <!-- NSAIDs Use -->
+            <div class="form-group">
+                <label for="nsaidsUse">NSAIDs Use:</label>
+                <input type="number" step="0.01" id="nsaidsUse" name="nsaidsUse" required>
+            </div>
+
+            <!-- Statins -->
+            <div class="form-group">
+                <label for="statins">Statins:</label>
+                <select id="statins" name="statins" required>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+
+            <!-- Antidiabetic Medications -->
+            <div class="form-group">
+                <label for="antidiabeticMedications">Antidiabetic Medications:</label>
+                <select id="antidiabeticMedications" name="antidiabeticMedications" required>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+
+            <!-- Edema -->
+            <div class="form-group">
+                <label for="edema">Edema:</label>
+                <select id="edema" name="edema" required>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+
+            <!-- Fatigue Levels -->
+            <div class="form-group">
+                <label for="fatigueLevels">Fatigue Levels:</label>
+                <input type="number" step="0.01" id="fatigueLevels" name="fatigueLevels" required>
+            </div>
+
+            <!-- Nausea Vomiting -->
+            <div class="form-group">
+                <label for="nauseaVomiting">Nausea/Vomiting:</label>
+                <input type="number" step="0.01" id="nauseaVomiting" name="nauseaVomiting" required>
+            </div>
+
+            <!-- Muscle Cramps -->
+            <div class="form-group">
+                <label for="muscleCramps">Muscle Cramps:</label>
+                <input type="number" step="0.01" id="muscleCramps" name="muscleCramps" required>
+            </div>
+
+            <!-- Itching -->
+            <div class="form-group">
+                <label for="itching">Itching:</label>
+                <input type="number" step="0.01" id="itching" name="itching" required>
+            </div>
+
+            <!-- Quality Of Life Score -->
+            <div class="form-group">
+                <label for="qualityOfLifeScore">Quality Of Life Score:</label>
+                <input type="number" step="0.01" id="qualityOfLifeScore" name="qualityOfLifeScore" required>
+            </div>
+
+            <!-- Heavy Metals Exposure -->
+            <div class="form-group">
+                <label for="heavyMetalsExposure">Heavy Metals Exposure:</label>
+                <select id="heavyMetalsExposure" name="heavyMetalsExposure" required>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+
+            <!-- Occupational Exposure Chemicals -->
+            <div class="form-group">
+                <label for="occupationalExposureChemicals">Occupational Exposure to Chemicals:</label>
+                <select id="occupationalExposureChemicals" name="occupationalExposureChemicals" required>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+
+            <!-- Water Quality -->
+            <div class="form-group">
+                <label for="waterQuality">Water Quality:</label>
+                <select id="waterQuality" name="waterQuality" required>
+                    <option value="0">Poor</option>
+                    <option value="1">Good</option>
+                </select>
+            </div>
+
+            <!-- Medical Checkups Frequency -->
+            <div class="form-group">
+                <label for="medicalCheckupsFrequency">Medical Checkups Frequency:</label>
+                <input type="number" step="0.01" id="medicalCheckupsFrequency" name="medicalCheckupsFrequency" required>
+            </div>
+
+            <!-- Medication Adherence -->
+            <div class="form-group">
+                <label for="medicationAdherence">Medication Adherence:</label>
+                <input type="number" step="0.01" id="medicationAdherence" name="medicationAdherence" required>
+            </div>
+
+            <!-- Health Literacy -->
+            <div class="form-group">
+                <label for="healthLiteracy">Health Literacy:</label>
+                <input type="number" step="0.01" id="healthLiteracy" name="healthLiteracy" required>
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+        <div>
+            <h3>{{ kidney_Result }}</h3>
+        </div>
+    </div>
+</body>
+</html>
